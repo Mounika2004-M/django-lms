@@ -1,8 +1,11 @@
 from django.urls import path
-from  .views import userData
+from  .views import userData, SignupUser
+
 app_name = 'users'
 
 
+
 urlpatterns = [
-    path('userData/', userData, name='userData'),
+    path('signup/', SignupUser.as_view(), name='signup'),
+    path('userData/', userData, name='userdata'),
 ]
