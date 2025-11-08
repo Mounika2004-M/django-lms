@@ -10,4 +10,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('users/', include('users.urls', namespace='users')),
+    path('course/', include('course.urls', namespace='course')),
+    path('batch/', include('batch.urls', namespace='batch')),
 ]

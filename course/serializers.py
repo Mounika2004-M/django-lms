@@ -1,18 +1,30 @@
 from rest_framework import serializers
-from .models import User
 from django.contrib.auth import get_user_model
+from .models import Course  # import your Course model
 
-user = get_user_model()
+User = get_user_model()  # get the actual user model
 
 class TrainerSerializer(serializers.ModelSerializer):
     class Meta:
-        model = user
+        model = User
         fields = ['id', 'username', 'email']
-       
 
 class CourseSerializer(serializers.ModelSerializer):
-    trainers= serializers.PrimaryKeyRelatedField(queryset=user.objects.filter(role='TRAINER'), many=True)
+    # trainers field for assigning trainers (ManyToMany or PrimaryKeyRelated)
+    trainers = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.filter(role='TRAINER'), 
+        many=True
+    )
+    # nested serializer to display trainer details
     trainers_details = TrainerSerializer(source='trainers', many=True, read_only=True)
+
     class Meta:
-        model = user
-        fields = ['id', 'title', 'desc', 'dur_weeks', 'trainers', 'trainers_details', 'created_at']
+        model = Course  # ✅ use Course model here, not User
+        fields = ['id','title', 'desc', 'dur_weeks', 'trainers', 'trainers_details', 'created_at']
+
+        
+
+
+
+
+
