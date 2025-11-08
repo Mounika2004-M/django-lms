@@ -7,5 +7,5 @@ app_name = 'users'
 
 urlpatterns = [
     path('signup/', SignupUser.as_view(), name='signup'),
-    path('userData/', userData, name='userdata'),
+    path('userData/<int:id>/', userData, name='userdata'),
 ]
